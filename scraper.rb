@@ -1,9 +1,10 @@
+puts Dir.pwd
 require 'active_record'
 require 'active_support/all'
+require 'action_view/helpers'
 require 'awesome_print'
 require 'colored'
 require 'csv'
-require 'html_stripper'
 require 'http'
 require 'nokogiri'
 require 'open-uri'
@@ -26,3 +27,8 @@ class Scraper
   end
 
 end
+
+
+binding.pry
+
+puts ""

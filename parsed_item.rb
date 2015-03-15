@@ -1,6 +1,5 @@
-include ActionView::Helpers
 
-class ParsedItem
+class ItemParser
 	attr_reader :number, :type, :ward, :title, :sections, :recommendations
 	
 	# TO DO: 
@@ -15,7 +14,7 @@ class ParsedItem
 		@type            = find_item_type
 		@ward            = find_ward
 		@title           = find_item_title
-		@sections        = hash_sections(raw_html)
+		@sections        = hash_sections
 		@sections[:ward] = @ward
 
 		@item 					 = nil
@@ -24,22 +23,12 @@ class ParsedItem
 	def to_h
 		{
 			number:          @number,
-			# type:            @type,
+			type:            @type,
 			title:           @title,
 			sections:        @sections,
 		}
 	end
 
-	def to_s
-		[
-			"Number: #{@number}",
-			"Title: #{@title}",
-			"Ward: #{@ward}",
-			"Type: #{@type}",
-			"-------",
-			@sections.to_a.join("\n")
-		].join("\n")
-	end
 
 	private
 	attr_reader :item
@@ -61,12 +50,14 @@ class ParsedItem
 		item.xpath('//table/tr/td/font/b').first.text
 	end
 
-	def raw_html
+	def sections_html
 		item_tables = item.xpath('//table')
 		item.xpath('//table')[2..item_tables.length]
 	end
 
-	def hash_sections(contents)
+	def hash_sections
+		raw_html = sections_html
+
 		@keywords = [
 			"Recommendations",
 			"Decision Advice and Other Information",
@@ -78,7 +69,7 @@ class ParsedItem
 			"Declared Interests"
 		]
 
-		sections = Hash.new('')
+		sections        = Hash.new('')
 		current_section = ""
 
 		def is_b?(node)
@@ -97,7 +88,7 @@ class ParsedItem
 			is_b?(node) && !is_i?(node) && match_words?(node)
 		end
 
-		contents.css('td').map do |node|
+		raw_html.css('td').map do |node|
 			if node.css('p').length > 0
 				sections[current_section] << node.css('p')
 																				 .map(&:text)
