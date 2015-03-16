@@ -1,4 +1,6 @@
-class RawAgenda
+require_relative 'scraper'
+
+class RawAgenda < Scraper
 	attr_reader :id
 	
 	def initialize(id)
@@ -24,10 +26,6 @@ class RawAgenda
 	  }
 	end
 
-	def post(form)
-		HTTP.with_headers("User-Agent" => "INTERNET EXPLORER").post(url, form: form).body
-	end
-
 	# TO DO: hook up the html stripper and start using clean data! 
 	def content
 		content = post(agenda_params(id))
@@ -46,9 +44,5 @@ class RawAgenda
 			content = parser.parse_html!(content).to_s
 			content
 		end
-	end
-
-	def save
-		File.open(filename, 'w') {|f| f.write(content) }	  
 	end
 end

@@ -1,7 +1,6 @@
 require_relative 'raw_agenda'
 require_relative 'parsed_item'
 require_relative 'meeting_ids'
-require_relative 'scraper'
 
 class AgendaScraper < Scraper
 

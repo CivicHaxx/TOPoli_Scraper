@@ -1,4 +1,3 @@
-
 class ItemParser
 	attr_reader :number, :type, :ward, :title, :sections, :recommendations
 	
