@@ -1,5 +1,9 @@
 # TOPoli Scraper
 
+This scraper is a work in progress that scrapes the City of Toronto Council data. When it is complete, it will scrape Agendas, Minutes, Decision Documents, and the Vote Record and save it all to a Database. The scraper will integrate with an API so that you can get all of this info as JSON.
+
+Here's what we're working on:
+
 ## Scraper Class
 - methods: 
   + `save` saves file to hard drive
@@ -33,8 +37,8 @@
 - relies on parsed_item to break item into sections and return a hash of the items sections
 
 ## Note on Agendas Minutes and Decision Docs Scrapers
-- we need to look more closely at this. There might be some overlap between the three.
-- for example, I think the Decision Docs contain the final item as well as all the motions that modified the original item.
+- We need to look more closely at this. There might be some overlap between the three.
+  + For example, I think the Decision Docs contain the final item as well as all the motions that modified the original item.
 
 ## Vote Record Scraper
 - Child of Scraper
