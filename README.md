@@ -36,7 +36,7 @@ Here's what we're working on:
 - relies on raw_agenda to get the agenda and save it to the HD
 - relies on parsed_item to break item into sections and return a hash of the items sections
 
-## Note on Agendas Minutes and Decision Docs Scrapers
+### Note on Agendas Minutes and Decision Docs Scrapers
 - We need to look more closely at this. There might be some overlap between the three.
   + For example, I think the Decision Docs contain the final item as well as all the motions that modified the original item.
 
